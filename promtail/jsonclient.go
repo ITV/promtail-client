@@ -8,16 +8,36 @@ import (
 	"time"
 )
 
-// XXX XXX outdated
+/**
+{
+  "streams": [
+    {
+      "stream": {
+        "label": "value"
+      },
+      "values": [
+          [ "<unix epoch in nanoseconds>", "<log line>" ],
+          [ "<unix epoch in nanoseconds>", "<log line>" ]
+      ]
+    }
+  ]
+}
+**/
+
 type jsonLogEntry struct {
-	Ts    time.Time `json:"ts"`
-	Line  string    `json:"line"`
-	level LogLevel  // not used in JSON
+	Ts    time.Time
+	Line  string
+	level LogLevel
+}
+
+func (e *jsonLogEntry) UnmarshalJSON(b []byte) error {
+   a := []interface{}{e.Ts.UnixNano(), e.Line}
+   return json.Unmarshal(b, &a)
 }
 
 type promtailStream struct {
-	Labels  string          `json:"labels"`
-	Entries []*jsonLogEntry `json:"entries"`
+	Labels  string          `json:"stream"`
+	Entries []*jsonLogEntry `json:"values"`
 }
 
 type promtailMsg struct {
@@ -33,7 +53,6 @@ type clientJson struct {
 }
 
 func NewClientJson(conf ClientConfig) (Client, error) {
-	panic("XXX: json structs outdated, won't work with latest loki")
 	client := clientJson{
 		config:  &conf,
 		quit:    make(chan struct{}),
