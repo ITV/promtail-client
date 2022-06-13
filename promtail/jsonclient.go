@@ -8,10 +8,11 @@ import (
 	"time"
 )
 
+// XXX XXX outdated
 type jsonLogEntry struct {
 	Ts    time.Time `json:"ts"`
 	Line  string    `json:"line"`
-	level LogLevel // not used in JSON
+	level LogLevel  // not used in JSON
 }
 
 type promtailStream struct {
@@ -32,6 +33,7 @@ type clientJson struct {
 }
 
 func NewClientJson(conf ClientConfig) (Client, error) {
+	panic("XXX: json structs outdated, won't work with latest loki")
 	client := clientJson{
 		config:  &conf,
 		quit:    make(chan struct{}),

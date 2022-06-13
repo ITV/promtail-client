@@ -5,10 +5,13 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/golang/snappy"
-	"github.com/afiskon/promtail-client/logproto"
+	"github.com/hostwithquantum/promtail-client/logproto"
 	"log"
 	"sync"
 	"time"
+
+	// needed only for .proto file
+	_ "github.com/gogo/protobuf/gogoproto"
 )
 
 type protoLogEntry struct {
