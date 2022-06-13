@@ -31,6 +31,8 @@ type ClientConfig struct {
 	SendLevel LogLevel
 	// Logs are printed to stdout if the entry level is >= PrintLevel
 	PrintLevel LogLevel
+	// Optional
+	XScopeOrgID string
 }
 
 type Client interface {
@@ -43,7 +45,8 @@ type Client interface {
 
 // http.Client wrapper for adding new methods, particularly sendJsonReq
 type httpClient struct {
-	parent http.Client
+	parent      http.Client
+	XScopeOrgID string
 }
 
 // A bit more convenient method for sending requests to the HTTP server
@@ -54,6 +57,9 @@ func (client *httpClient) sendJsonReq(method, url string, ctype string, reqBody 
 	}
 
 	req.Header.Set("Content-Type", ctype)
+	if client.XScopeOrgID != "" {
+		req.Header.Set("X-Scope-OrgID", client.XScopeOrgID)
+	}
 
 	resp, err = client.parent.Do(req)
 	if err != nil {

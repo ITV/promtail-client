@@ -31,8 +31,8 @@ type jsonLogEntry struct {
 }
 
 func (e *jsonLogEntry) UnmarshalJSON(b []byte) error {
-   a := []interface{}{e.Ts.UnixNano(), e.Line}
-   return json.Unmarshal(b, &a)
+	a := []interface{}{e.Ts.UnixNano(), e.Line}
+	return json.Unmarshal(b, &a)
 }
 
 type promtailStream struct {
@@ -57,7 +57,7 @@ func NewClientJson(conf ClientConfig) (Client, error) {
 		config:  &conf,
 		quit:    make(chan struct{}),
 		entries: make(chan *jsonLogEntry, LOG_ENTRIES_CHAN_SIZE),
-		client:  httpClient{},
+		client:  httpClient{XScopeOrgID: conf.XScopeOrgID},
 	}
 
 	client.waitGroup.Add(1)

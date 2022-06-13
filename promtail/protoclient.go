@@ -32,7 +32,7 @@ func NewClientProto(conf ClientConfig) (Client, error) {
 		config:  &conf,
 		quit:    make(chan struct{}),
 		entries: make(chan protoLogEntry, LOG_ENTRIES_CHAN_SIZE),
-		client:  httpClient{},
+		client:  httpClient{XScopeOrgID: conf.XScopeOrgID},
 	}
 
 	client.waitGroup.Add(1)
