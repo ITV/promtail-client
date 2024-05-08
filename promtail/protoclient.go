@@ -2,13 +2,14 @@ package promtail
 
 import (
 	"fmt"
+	"log"
+	"sync"
+	"time"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/golang/snappy"
 	"github.com/hostwithquantum/promtail-client/logproto"
-	"log"
-	"sync"
-	"time"
 
 	// needed only for .proto file
 	_ "github.com/gogo/protobuf/gogoproto"
@@ -36,6 +37,7 @@ func NewClientProto(conf ClientConfig) (Client, error) {
 	}
 
 	client.waitGroup.Add(1)
+	log.Print("tomhayn in protoclient")
 	go client.run()
 
 	return &client, nil
