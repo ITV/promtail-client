@@ -157,6 +157,8 @@ func (c *clientProto) send(entries []*logproto.Entry) {
 	buf = snappy.Encode(nil, buf)
 
 	resp, body, err := c.client.sendJsonReq("POST", c.config.PushURL, "application/x-protobuf", buf)
+	log.Print("tomhayn 160")
+	log.Print(resp)
 	if err != nil {
 		log.Printf("promtail.ClientProto: unable to send an HTTP request: %s\n", err)
 		return
