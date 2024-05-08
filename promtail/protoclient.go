@@ -96,8 +96,13 @@ func (c *clientProto) run() {
 	for {
 		select {
 		case <-c.quit:
+			log.Print("tomhayn 99")
 			return
 		case entry := <-c.entries:
+			log.Print("tomhayn 102")
+			log.Print("tomhayn entry.level " + entry.level)
+			log.Print("tomhayn PrintLevel " + c.config.PrintLevel)
+			log.Print("tomhayn BatchEntriesNumber " + c.config.BatchEntriesNumber)
 			if entry.level >= c.config.PrintLevel {
 				log.Print(entry.entry.Line)
 			}
@@ -113,6 +118,7 @@ func (c *clientProto) run() {
 				}
 			}
 		case <-maxWait.C:
+			log.Print("tomhayn 121")
 			if batchSize > 0 {
 				c.send(batch)
 				batch = []*logproto.Entry{}
