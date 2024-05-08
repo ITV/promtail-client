@@ -104,6 +104,8 @@ func (c *clientProto) run() {
 			log.Print(entry.level)
 			log.Print("tomhayn PrintLevel")
 			log.Print(c.config.PrintLevel)
+			log.Print("tomhayn SendLevel")
+			log.Print(c.config.SendLevel)
 			log.Print("tomhayn BatchEntriesNumber")
 			log.Print(c.config.BatchEntriesNumber)
 			if entry.level >= c.config.PrintLevel {
@@ -111,9 +113,13 @@ func (c *clientProto) run() {
 			}
 
 			if entry.level >= c.config.SendLevel {
+				log.Print("tomhayn 116")
 				batch = append(batch, entry.entry)
 				batchSize++
+				log.Print("tomhayn batchsize")
+				log.Print(batchSize)
 				if batchSize >= c.config.BatchEntriesNumber {
+					log.Print("tomhayn 122")
 					c.send(batch)
 					batch = []*logproto.Entry{}
 					batchSize = 0
@@ -121,7 +127,6 @@ func (c *clientProto) run() {
 				}
 			}
 		case <-maxWait.C:
-			log.Print("tomhayn 121")
 			if batchSize > 0 {
 				c.send(batch)
 				batch = []*logproto.Entry{}
