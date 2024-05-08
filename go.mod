@@ -1,4 +1,4 @@
-module github.com/hostwithquantum/promtail-client
+module github.com/itv/promtail-client
 
 go 1.17
 

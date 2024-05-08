@@ -9,7 +9,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/golang/snappy"
-	"github.com/hostwithquantum/promtail-client/logproto"
+	"github.com/itv/promtail-client/logproto"
 
 	// needed only for .proto file
 	_ "github.com/gogo/protobuf/gogoproto"
