@@ -100,9 +100,12 @@ func (c *clientProto) run() {
 			return
 		case entry := <-c.entries:
 			log.Print("tomhayn 102")
-			log.Print("tomhayn entry.level " + entry.level)
-			log.Print("tomhayn PrintLevel " + c.config.PrintLevel)
-			log.Print("tomhayn BatchEntriesNumber " + c.config.BatchEntriesNumber)
+			log.Print("tomhayn entry.level")
+			log.Print(entry.level)
+			log.Print("tomhayn PrintLevel")
+			log.Print(c.config.PrintLevel)
+			log.Print("tomhayn BatchEntriesNumber")
+			log.Print(c.config.BatchEntriesNumber)
 			if entry.level >= c.config.PrintLevel {
 				log.Print(entry.entry.Line)
 			}
